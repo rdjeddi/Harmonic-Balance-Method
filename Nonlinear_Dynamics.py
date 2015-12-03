@@ -47,33 +47,7 @@ def med_res():
 #         #mpl.rcParams['savefig'] = 120
 
 
-def solve_sdof(max_time=10.0, omega = 2.8284, Omega = 2, mu = 2, F = 10, elevation = 30, angle = 10, x0 = 1, v0 = 0, plotnow = 1):
 
-    
-    def sdof_deriv(x1_x2, t, omega = omega, Omega = Omega, mu = mu, F = F, angle = angle):
-        """Compute the time-derivative of a SDOF system."""
-        x1, x2 = x1_x2
-        return [x2, -omega**2*x1-2*mu*x2+F*sp.cos(Omega*t)]
-
-    x0i=((x0, v0))
-    # Solve for the trajectories
-    t = sp.linspace(0, max_time, int(250*max_time))
-    x_t = sp.integrate.odeint(sdof_deriv, x0i, t)
-    
-    x, v = x_t.T
-
-    if plotnow == 1:
-        fig = plt.figure()
-        ax = fig.add_axes([0, 0, 1, 1], projection='3d')
-        plt.plot(x, v, t,'--')
-        plt.xlabel('x')
-        plt.ylabel('v')
-        ax.set_zlabel('t')
-
-        ax.view_init(elevation, angle)
-        plt.show()
-
-    return t, x, v
 
 def cubic_deriv(x1_x2, t, mu = .1):
     """Compute the time-derivative of a SDOF system."""
