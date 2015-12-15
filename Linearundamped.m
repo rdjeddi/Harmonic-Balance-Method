@@ -5,7 +5,7 @@ clear all
 clc
 close all
 
-%ddx + x = cos(2*t)
+%ddx + x = cos(w*t)
 
 N=100;
 t=linspace(0,2*1*pi, N+1);
