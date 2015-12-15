@@ -5,7 +5,7 @@ clear all
 clc
 close all
 
-%ddx + dx + x = cos(2*t)
+%ddx + dx + x = cos(w*t)
 
 N=99;
 t=linspace(0,2*1*pi, N+1);
@@ -17,8 +17,7 @@ Omega=w*omega;
 f=cos(2.*t);
 F=fft(f);
 t_eval = linspace(0,2*pi,100);
-%X_analytical = (cos(2*t_eval)/(1-w.^2));
-X_analytical = -(sin(2*t_eval) - cos(2*t_eval))/(1-w.^2);
+X_analytical = (-w*F-sqrt(1-F.^2).*(1-w^2))/(w^2-w^4-1);
 x0 = 0*ones(N,1);
 X1 = fminsearch(uvfun(),F);
 function RES = uvfun(x0)
@@ -30,7 +29,7 @@ function RES = uvfun(x0)
  error = (ddx + dotx + x0 - f);
  RES = @(F) sum((error).^2);
 end
- plot(t_eval,X_analytical,'r*',t,ifft(X1)/(1-w.^2), 'r-');
+ plot(t,-w*f-sqrt(1-f.^2).*(1-w^2)/(w^2-w^4-1),'r*',t,-w*ifft(F)-sqrt(1-ifft(F).^2).*(1-w^2)/(w^2-w^4-1), 'b-');
  xlabel('Time (seconds)');
  ylabel('x(t)');
  title('Linear damped case')
