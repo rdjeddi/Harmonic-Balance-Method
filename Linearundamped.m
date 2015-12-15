@@ -31,7 +31,7 @@ function RES = uvfun(x0)
  error = (ddx + x0 - f);
  RES = @(F) sum((error).^2);
 end
- plot(t_eval,X_analytical,'r*',t_eval,ifft(X1)/(1-w.^2), 'r-');
+ plot(t_eval,X_analytical,'r*',t,ifft(X1)/(1-w.^2), 'r-');
  xlabel('Time (seconds)');
  ylabel('x(t)');
  title('Linear undamped case')
